@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Realm from 'realm';
 import {
   Platform,
   StyleSheet,
@@ -20,11 +21,34 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
-  render() {
+  
+  constructor(props) {
+      super(props);
+      this.state = { realm: null };
+  }
+  
+  componentWillMount() {
+      Realm.open({
+          schema: [{name: 'Dog', properties: {name: 'string'}}]
+      }).then(realm => {
+          realm.write(() => {
+              realm.create('Dog', {name: 'Rex'});
+          });
+          this.setState({ realm });
+      });
+  }
+	
+	render() {
+	  console.log('Realm...', Realm)
+        console.log(__DEV__)
+    const info = this.state.realm
+        ? 'Number of dogs in this Realm: ' + this.state.realm.objects('Dog').length
+        : 'Loading...';
+	  console.log('this.state.realm', this.state.realm)
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+            {info}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
