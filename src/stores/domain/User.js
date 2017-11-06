@@ -1,13 +1,27 @@
 import {observable} from 'mobx';
 import realm from '../../services/realm';
 
+import Root from './Root'
+
 /**
  * 险种基本信息
  */
-export default class User {
+export default class User extends Root{
+	@observable name = this.name;
+	@observable sex = '';
+	@observable age = '';
+	@observable job = '';
+	
+	constructor(name, sex, age, job) {
+		super();
+		this.name = name;
+		this.sex = sex;
+		this.age = age;
+		this.job = job
+	}
 	
 	static create(risk) {
-		realm.create('Risk', realm.cascadingCopy(risk), true)
+		realm.create('User', realm.cascadingCopy(risk), true)
 	}
 	
 	static findByPk(pk) {

@@ -21,7 +21,7 @@ const instructions = Platform.select({
 	'Shake or press menu button for dev menu',
 });
 
-@inject("homeStore")
+@inject("homeStore", "userStore")
 @observer
 export default class App extends Component<{}> {
 	
@@ -39,16 +39,17 @@ export default class App extends Component<{}> {
 			});
 			this.setState({ realm });
 		});
+		// console.log('userStore', this.props.userStore)
 	}
 	
 	render() {
-		console.log('Realm...', Realm)
-		console.log(__DEV__)
-		console.log(this.props.homeStore)
+		console.log('render')
 		const info = this.state.realm
 			? 'Number of dogs in this Realm: ' + this.state.realm.objects('Dog').length
 			: 'Loading...';
-		console.log('this.state.realm', this.state.realm)
+		if (this.state.realm) {
+			console.log('this.state.realm', this.state.realm.objects('Dog'))
+		}
 		return (
 			<View style={styles.container}>
 				<Text style={styles.welcome}>

@@ -6,11 +6,10 @@ import DeviceInfo from 'react-native-device-info'
 import {
 	UserSchema
 } from '../../stores/schema'
-import names from "../data/name.json"
 
 if (__DEV__ && Platform.OS === 'ios') {
 	// if (__DEV__ && Platform.OS === 'ios' && DeviceInfo.isEmulator()) {
-	Realm.defaultPath = '/Users/Shared/realm/realm-data/data.realm'
+	Realm.defaultPath = '/Users/Shared/realm-data/data.realm'
 	console.log('..........defaultPath')
 }
 
@@ -23,8 +22,8 @@ const schemas = [
 	{schema: schema, schemaVersion: 1, migration: (oldRealm, newRealm) => {
 		// only apply this change if upgrading to schemaVersion 1
 		if (oldRealm.schemaVersion < 1) {
-			let oldObjects = oldRealm.objects('UserSchema');
-			let newObjects = newRealm.objects('UserSchema');
+			let oldObjects = oldRealm.objects('RiskThumb');
+			let newObjects = newRealm.objects('RiskThumb');
 			
 			// loop through all objects and set the name property in the new schema
 			for (let i = 0; i < oldObjects.length; i++) {
@@ -57,24 +56,22 @@ const realm = new Realm(schemas[schemas.length-1])
 
 //初始化产品缩略图配置数据
 realm.write(() => {
-	console.log('......a')
-	// let loadedRiskThumbs = realm.objects('UserSchema')
-	console.log('.....b');
-	// realm.delete(loadedRiskThumbs);
-	// for (let thumb of riskThumbs) {
-	// 	realm.create('UserSchema', thumb);
-	// }
+	let loadedRiskThumbs = realm.objects('RiskThumb');
+	realm.delete(loadedRiskThumbs);
+	for (let thumb of riskThumbs) {
+		realm.create('RiskThumb', thumb);
+	}
 });
 
 //初始化设备信息
-// realm.write(() => {
-// 	let deviceInfos = realm.objects('DeviceInfo')
-//
-// 	if (deviceInfos.length === 0) {
-// 		let deviceInfoDomain = new DeviceInfoDomain()
-// 		realm.create('DeviceInfo', deviceInfoDomain)
-// 	}
-// })
+realm.write(() => {
+	let deviceInfos = realm.objects('DeviceInfo')
+	
+	if (deviceInfos.length === 0) {
+		let deviceInfoDomain = new DeviceInfoDomain()
+		realm.create('DeviceInfo', deviceInfoDomain)
+	}
+})
 
 function cascadingDelete(object) {
 	
@@ -97,6 +94,7 @@ function cascadingDelete(object) {
 				if (_.isEmpty(listObject)) {
 					listObject = object[propName][0]
 				}
+				console.log(222, listObject);
 				cascadingDelete(listObject)
 			})
 		}

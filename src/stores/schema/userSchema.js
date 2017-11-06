@@ -1,9 +1,8 @@
 const UserSchema = {
 	name: 'user',
-	primaryKey: 'user_id',
 	properties: {
 		user_name: 'string',
-		age: {type: 'int', default: 0},
+		age: {type: 'string', default: '0'},
 		sex: 'string'
 	}
 }
