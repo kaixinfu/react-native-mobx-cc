@@ -1,0 +1,30 @@
+{
+  "name": "Ion",
+  "version": "0.1.0",
+  "summary": "Easy form creation for iOS",
+  "description": "Form creation for iOS apps has never been easier. Simply create your form object,\nwire it to your views and have access to a myriad of functionality available such as\nform verification, form state changes notification, the form data ready to be sent \non a backend using Alamofire and much more.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/Ion",
+  "license": "MIT",
+  "authors": {
+    "George Kaimakas": "gkaimakas@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/Ion.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "Ion": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "SwiftValidators": [
+
+    ]
+  }
+}

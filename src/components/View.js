@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import Realm from 'realm';
+// import Realm from 'realm';
 import {
 	Platform,
 	StyleSheet,
@@ -31,14 +31,14 @@ export default class App extends Component<{}> {
 	}
 	
 	componentWillMount() {
-		Realm.open({
-			schema: [{name: 'Dog', properties: {name: 'string'}}]
-		}).then(realm => {
-			realm.write(() => {
-				realm.create('Dog', {name: 'Rex'});
-			});
-			this.setState({ realm });
-		});
+		// Realm.open({
+		// 	schema: [{name: 'Dog', properties: {name: 'string'}}]
+		// }).then(realm => {
+		// 	realm.write(() => {
+		// 		realm.create('Dog', {name: 'Rex'});
+		// 	});
+		// 	this.setState({ realm });
+		// });
 		// console.log('userStore', this.props.userStore)
 	}
 	
